@@ -31,6 +31,9 @@ package  {
 		public static var MOVE_SPEED:Number = 1.0;
 		public static var SPRINT_SPEED:Number = 2.5;
 		
+		public static const DEGREE:Number = 180 / Math.PI;
+		public static const RADIAN:Number = Math.PI / 180;
+		
 		public static function float_random(min:Number, max:Number):Number {
 			return min + Math.random() * (max - min);
 		}
@@ -87,14 +90,6 @@ package  {
 			} else {
 				return val;
 			}
-		}
-		
-		public static function d2r(d:Number):Number {
-			return d * (Math.PI / 180);
-		}
-		
-		public static function r2d(r:Number):Number {
-			return r * (180 / Math.PI);
 		}
 		
 		public static function point_dist(ax:Number, ay:Number, bx:Number, by:Number):Number {

@@ -22,10 +22,12 @@ package {
 		
 		public var _camera_icon:FlxSprite = new FlxSprite();
 		
+		public var debug:Boolean = false;
+		
 		override public function create():void {
 			super.create();
 			
-			_levels.add(new TestLevel());
+			_levels.add(new TestLevel(this));
 			this.add(_levels);
 			
 			// front
@@ -33,7 +35,7 @@ package {
 			this.add(_player);
 			
 			_camera_icon.loadGraphic(Resource.IMPORT_CAMERA_ICON);
-			_camera_icon.visible = false;		// turn visible for debug
+			_camera_icon.visible = false;		// turn visible for debugging
 			this.add(_camera_icon);
 			
 			FlxG.camera.follow(_camera_icon);

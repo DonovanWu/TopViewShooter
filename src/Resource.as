@@ -5,12 +5,17 @@ package  {
 	import org.flixel.plugin.photonstorm.FlxBitmapFont;
 	public class Resource {
 		
+		[Embed( source = "../resc/hitbox_20x30.png" )] public static var IMPORT_HITBOX:Class;
+		
 // accessories
 		[Embed( source = "../resc/accessories/mouse_reticle.png" )] public static var IMPORT_MOUSE_RETICLE:Class;
 		[Embed( source = "../resc/accessories/camera.jpg" )] public static var IMPORT_CAMERA_ICON:Class;
 
 // bg
 		[Embed( source = "../resc/bg/default_bg.jpg" )] public static var IMPORT_DEFAULT_BG:Class;
+
+// particles
+		[Embed( source = "../resc/particles/bullet.png" )] public static var IMPORT_GUN_BULLET:Class;
 
 //player
 		[Embed( source = "../resc/characters/player_body.png" )] public static var IMPORT_PLAYER_BODY:Class;

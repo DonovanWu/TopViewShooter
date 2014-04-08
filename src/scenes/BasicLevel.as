@@ -8,6 +8,7 @@ package scenes {
 	import org.flixel.FlxPoint;
 	
 	public class BasicLevel extends FlxGroup {
+		protected var _g:GameEngine;
 		protected var _dim_x:int;
 		protected var _dim_y:int;
 		protected var _total_wid:Number = 0;
@@ -17,10 +18,18 @@ package scenes {
 		private var expected_wid:int = 0;
 		private var expected_hei:int = 0;
 		
-		public function BasicLevel(dim_x:int, dim_y:int) {
-			this._dim_x = dim_x;
-			this._dim_y = dim_y;
+		// default: dim_x = dim_y = 1
+		public function BasicLevel(game:GameEngine) {
+			this._g = game;
+			this._dim_x = 1;
+			this._dim_y = 1;
 			this._tile_count = 0;
+		}
+		
+		public function set_dim(dim_x:int, dim_y:int):BasicLevel {
+			_dim_x = dim_x;
+			_dim_y = dim_y;
+			return this;
 		}
 		
 		protected function add_tile(tile:GameWorld):void {

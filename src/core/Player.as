@@ -13,24 +13,34 @@ package core {
 		public var _movespeed:Number = Util.MOVE_SPEED;
 		
 		public var _body:FlxSprite = new FlxSprite();
+		public var _hitbox:FlxSprite = new FlxSprite();
 		
 		public var _g:GameEngine;
 		
 		public function Player() {
 			_body.loadGraphic(Resource.IMPORT_PLAYER_BODY);
 			this.add(_body);
+			
+			_hitbox.loadGraphic(Resource.IMPORT_HITBOX);
+			_hitbox.alpha = 0.5;
+			_hitbox.visible = false;
+			this.add(_hitbox);
 		}
 		
 		public function update_player(game:GameEngine):void {
 			_g = game;
 			
+			_hitbox.visible = _g.debug;
+			
 			_ang = Math.atan2(FlxG.mouse.y - _body.y, FlxG.mouse.x - _body.x);
-			_body.angle = Util.r2d(_ang);
+			_body.angle = _ang * Util.DEGREE;
+			_hitbox.angle = _ang * Util.DEGREE;
 			
 			update_position();
 		}
 		
 		override public function update_position():void {
+			_hitbox.set_position(x(), y());
 			_body.set_position(x(), y());
 		}
 		
