@@ -26,10 +26,10 @@ package  {
 		public static var MOVE_UP:Vector.<String> = Vector.<String>(["W", "UP"]);
 		public static var MOVE_DOWN:Vector.<String> = Vector.<String>(["S", "DOWN"]);
 		public static var MOVE_SPRINT:Vector.<String> = Vector.<String>(["SHIFT"]);
-		public static var TOGGLE_AIM:Vector.<String> = Vector.<String>(["SPACE"]);
+		public static var TOGGLE_AIM:String = "SPACE";
 		
-		public static var MOVE_SPEED:Number = 1.0;
-		public static var SPRINT_SPEED:Number = 2.5;
+		public static var MOVE_SPEED:Number = 2.0;
+		public static var SPRINT_SPEED:Number = 3.5;
 		
 		public static const DEGREE:Number = 180 / Math.PI;
 		public static const RADIAN:Number = Math.PI / 180;
@@ -120,6 +120,14 @@ package  {
 				_cur_play = _cur_song.play(0, int.MAX_VALUE);
 			}
 			
+		}
+		
+		public static function calibrate_pos(x:Number, y:Number, dx:Number, dy:Number, ang:Number):FlxPoint {
+			var theta:Number = Math.atan2(dy, dx) + ang * RADIAN;
+			var dr:Number = Math.sqrt(dx * dx + dy * dy);
+			var new_x:Number = x + dr * Math.cos(theta);
+			var new_y:Number = y + dr * Math.sin(theta);
+			return new FlxPoint(new_x, new_y);
 		}
 	}
 

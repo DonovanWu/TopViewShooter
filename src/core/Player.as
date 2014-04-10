@@ -4,7 +4,9 @@ package core {
 	 * @author Wenrui Wu
 	 */
 	
+	import guns.AutoFireRifle;
 	import misc.FlxGroupSprite;
+	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxG;
 	
@@ -14,6 +16,8 @@ package core {
 		
 		public var _body:FlxSprite = new FlxSprite();
 		public var _hitbox:FlxSprite = new FlxSprite();
+		
+		public var _weapon:AutoFireRifle = new AutoFireRifle();
 		
 		public var _g:GameEngine;
 		
@@ -25,6 +29,8 @@ package core {
 			_hitbox.alpha = 0.5;
 			_hitbox.visible = false;
 			this.add(_hitbox);
+			
+			this.add(_weapon);
 		}
 		
 		public function update_player(game:GameEngine):void {
@@ -35,6 +41,8 @@ package core {
 			_ang = Math.atan2(FlxG.mouse.y - _body.y, FlxG.mouse.x - _body.x);
 			_body.angle = _ang * Util.DEGREE;
 			_hitbox.angle = _ang * Util.DEGREE;
+			
+			_weapon.update_weapon(_g);
 			
 			update_position();
 		}
@@ -50,6 +58,10 @@ package core {
 		
 		public function restore_movespeed():void {
 			_movespeed = Util.MOVE_SPEED * _g._mobility;
+		}
+		
+		public function position():FlxPoint {
+			return new FlxPoint(this._body.x, this._body.y);
 		}
 	}
 

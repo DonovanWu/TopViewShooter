@@ -14,7 +14,7 @@ package particles
 			_curr_dmg = 1;
 		}
 		
-		public function bullet_update(game:GameEngine):void { }
+		public function update_bullet(game:GameEngine):void { }
 		public function should_remove():Boolean { return true; }
 		public function do_remove():void { }
 	}

@@ -14,7 +14,7 @@ package guns
 			this._gunstat = gunstat;
 		}
 		
-		public function update_weapon():void { }
+		public function update_weapon(game:GameEngine):void { }
 	}
 
 }
