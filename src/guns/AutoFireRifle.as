@@ -12,6 +12,7 @@ package guns
 	public class AutoFireRifle extends BasicWeapon {
 		public var _CATEGORY:String;
 		public var _name:String;
+		public var _mobility:Number;
 		
 		public var _mag:int;
 		private var _ammo_left:int;
@@ -25,6 +26,7 @@ package guns
 			
 			_CATEGORY = "AUTO_FIRE_RIFLE";
 			_name = _gunstat.name;
+			_mobility = _gunstat.mobility;
 			
 			// initialize with one clip already loaded
 			_ammo_left = _gunstat.ammo_total - _gunstat.mag_size;

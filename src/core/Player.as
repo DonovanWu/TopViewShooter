@@ -33,6 +33,7 @@ package core {
 			
 			
 			this.add(_weapon);
+			_movespeed = Util.MOVE_SPEED * _weapon._mobility;
 		}
 		
 		public function update_player(game:GameEngine):void {

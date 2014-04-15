@@ -80,11 +80,13 @@ package {
 			_is_moving = false;
 			_is_sprinting = false;
 			
+			this._mobility = _player._weapon._mobility;
+			
 			if (Util.is_key(Util.MOVE_LEFT) && _player.x() > 0) {
 				_player.x(-_player._movespeed);
 				_is_moving = true;
 				
-			} else if (Util.is_key(Util.MOVE_RIGHT) && _player.x() < bound.x - _player._body.width) {
+			} else if (Util.is_key(Util.MOVE_RIGHT) && _player.x() < bound.x) {
 				_player.x(_player._movespeed);
 				_is_moving = true;
 			} 
@@ -93,7 +95,7 @@ package {
 				_player.y(-_player._movespeed);
 				_is_moving = true;
 				
-			} else if (Util.is_key(Util.MOVE_DOWN) && _player.y() < bound.y - _player._body.height) {
+			} else if (Util.is_key(Util.MOVE_DOWN) && _player.y() < bound.y) {
 				_player.y(_player._movespeed);
 				_is_moving = true;
 			}
