@@ -127,6 +127,7 @@ package  {
 			var dr:Number = Math.sqrt(dx * dx + dy * dy);
 			var new_x:Number = x + dr * Math.cos(theta);
 			var new_y:Number = y + dr * Math.sin(theta);
+			
 			return new FlxPoint(new_x, new_y);
 		}
 	}

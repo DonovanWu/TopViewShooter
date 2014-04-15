@@ -13,7 +13,7 @@ package particles
 			super(pos.x, pos.y);
 			
 			this._speed = spd;
-			this.angle = ang;
+			rotate(ang);
 			this._distance = 0;
 			this._range = rg;
 			this._damage = dmg;
@@ -28,6 +28,12 @@ package particles
 				}
 			}
 			return _range.length - 1;
+		}
+		
+		private function rotate(ang:Number):void {
+			this.angle = ang;
+			this.x -= 15 * (1 - Math.cos(ang * Util.RADIAN));
+			this.y += 15 * Math.sin(ang * Util.RADIAN);
 		}
 		
 		override public function update_bullet(game:GameEngine):void {

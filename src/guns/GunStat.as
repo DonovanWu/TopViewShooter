@@ -19,7 +19,8 @@ package guns
 		
 		// default is assualt rifle
 		public function GunStat() {
-			name = "Assualt Rifle";
+			// remember to prevent rpm that is less than or equal to 0
+			name = "Assault Rifle";
 			mobility = 0.9;
 			speed = 15;
 			rpm = 750;

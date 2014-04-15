@@ -22,6 +22,7 @@ package core {
 		public var _g:GameEngine;
 		
 		public function Player() {
+			// origin of player's coordinate is at the center of body/hitbox
 			_body.loadGraphic(Resource.IMPORT_PLAYER_BODY);
 			this.add(_body);
 			
@@ -29,6 +30,7 @@ package core {
 			_hitbox.alpha = 0.5;
 			_hitbox.visible = false;
 			this.add(_hitbox);
+			
 			
 			this.add(_weapon);
 		}
@@ -48,8 +50,8 @@ package core {
 		}
 		
 		override public function update_position():void {
-			_hitbox.set_position(x(), y());
-			_body.set_position(x(), y());
+			_hitbox.set_position(x() - _hitbox.width / 2 ,y() -_hitbox.height / 2);
+			_body.set_position(x() -_body.width / 2, y() -_body.height / 2);
 		}
 		
 		public function sprint():void {
@@ -61,7 +63,7 @@ package core {
 		}
 		
 		public function position():FlxPoint {
-			return new FlxPoint(this._body.x, this._body.y);
+			return new FlxPoint(x(), y());
 		}
 	}
 

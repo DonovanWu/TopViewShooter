@@ -111,12 +111,6 @@ package {
 				_is_ads = !_is_ads;
 				trace("ads = " + _is_ads);
 			}
-			
-			/*
-			if (_is_moving) {
-				trace(_player.x(), _player.y());
-			}
-			*/
 		}
 		
 		private function current_level():BasicLevel {
