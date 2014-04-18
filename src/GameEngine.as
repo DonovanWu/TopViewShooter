@@ -20,8 +20,7 @@ package {
 		public var _player:Player = new Player();
 		public var _is_moving:Boolean = false;
 		public var _is_sprinting:Boolean = false;
-		public var _is_ads:Boolean = false;
-		public var _mobility:Number = 1.0;
+		public var _stance:int = 0;	// 0 for hip, 1 for aim, -1 for prone
 		
 		public var _camera_icon:FlxSprite = new FlxSprite();
 		
@@ -57,7 +56,6 @@ package {
 			update_control();
 			
 			_camera_icon.set_position((_player.x() + FlxG.mouse.x) / 2, (_player.y() + FlxG.mouse.y) / 2);
-			
 		}
 		
 		private function update_bullets():void {
@@ -80,8 +78,6 @@ package {
 			_is_moving = false;
 			_is_sprinting = false;
 			
-			this._mobility = _player._weapon._mobility;
-			
 			if (Util.is_key(Util.MOVE_LEFT) && _player.x() > 0) {
 				_player.x(-_player._movespeed);
 				_is_moving = true;
@@ -103,15 +99,18 @@ package {
 			if (Util.is_key(Util.MOVE_SPRINT)) {
 				_player.sprint();
 				_is_sprinting = true;
-				_is_ads = false;
+				_stance = 0;
 			} else {
 				_player.restore_movespeed();
 				_is_sprinting = false;
 			}
 			
 			if (FlxG.keys.justPressed(Util.TOGGLE_AIM)) {
-				_is_ads = !_is_ads;
-				trace("ads = " + _is_ads);
+				if (_stance != 1) {
+					_stance = 1;	// aim
+				} else {
+					_stance = 0;	// hip
+				}
 			}
 		}
 		

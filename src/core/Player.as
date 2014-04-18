@@ -13,6 +13,7 @@ package core {
 	public class Player extends FlxGroupSprite {
 		public var _ang:Number = 0;
 		public var _movespeed:Number = Util.MOVE_SPEED;
+		private var _mobility:Number;
 		
 		public var _body:FlxSprite = new FlxSprite();
 		public var _hitbox:FlxSprite = new FlxSprite();
@@ -33,7 +34,8 @@ package core {
 			
 			
 			this.add(_weapon);
-			_movespeed = Util.MOVE_SPEED * _weapon._mobility;
+			
+			_movespeed = Util.MOVE_SPEED * _weapon.mobility();
 		}
 		
 		public function update_player(game:GameEngine):void {
@@ -56,11 +58,11 @@ package core {
 		}
 		
 		public function sprint():void {
-			_movespeed = Util.SPRINT_SPEED * _g._mobility;
+			_movespeed = Util.SPRINT_SPEED * _weapon.mobility();
 		}
 		
 		public function restore_movespeed():void {
-			_movespeed = Util.MOVE_SPEED * _g._mobility;
+			_movespeed = Util.MOVE_SPEED * _weapon.mobility();
 		}
 		
 		public function position():FlxPoint {
