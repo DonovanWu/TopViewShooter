@@ -26,7 +26,9 @@ package  {
 		public static var MOVE_UP:Vector.<String> = Vector.<String>(["W", "UP"]);
 		public static var MOVE_DOWN:Vector.<String> = Vector.<String>(["S", "DOWN"]);
 		public static var MOVE_SPRINT:Vector.<String> = Vector.<String>(["SHIFT"]);
-		public static var TOGGLE_AIM:String = "SPACE";
+		public static var TOGGLE_AIM:Vector.<String> = Vector.<String>(["SPACE"]);
+		
+		public static var WEAPON_SWITCH:Vector.<String> = Vector.<String>(["ONE", "TWO", "THREE", "FOUR"]);
 		
 		public static var MOVE_SPEED:Number = 2.0;
 		public static var SPRINT_SPEED:Number = 3.5;
@@ -55,6 +57,25 @@ package  {
 				}
 			}
 			return false;
+		}
+		
+		// returns the index of the key pressed in the list given; default is justPressed
+		// if the key isn't in the list, returns -1
+		public static function key_index(k:Vector.<String>, jp:Boolean = true):int {
+			var i:int = 0;
+			for each (var key:String in k) {
+				if (jp) {
+					if (FlxG.keys.justPressed(key)) {
+						return i;
+					}
+				} else {
+ 					if (FlxG.keys[key]) {
+						return i;
+					}
+				}
+				i++;
+			}
+			return -1;
 		}
 		
 		public static function get_bounds(game_obj:FlxGroup):Rectangle {

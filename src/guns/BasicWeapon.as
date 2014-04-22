@@ -9,10 +9,12 @@ package guns
 	import org.flixel.FlxSprite;
 	
 	public class BasicWeapon extends FlxSprite{
-		protected var _gunstat:Object;
+		protected var _stat:Object;
+		public var _offset:FlxPoint;
 		
-		public function BasicWeapon(gunstat:Object) {
-			this._gunstat = gunstat;
+		public function BasicWeapon(stat:Object) {
+			this._stat = stat;
+			this._offset = new FlxPoint();
 		}
 		
 		public function mobility():Number {

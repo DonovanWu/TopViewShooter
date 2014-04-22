@@ -5,6 +5,7 @@ package {
 	 */
 	
 	import flash.display.*;
+	import guns.*;
 	import particles.BasicBullet;
 	
 	import core.Player;
@@ -12,6 +13,7 @@ package {
 	import org.flixel.*;
 	import scenes.BasicLevel;
 	import scenes.TestLevel;
+	import guns.BasicWeapon;
 	
 	public class GameEngine extends FlxState {
 		public var _levels:FlxGroup = new FlxGroup();
@@ -24,6 +26,10 @@ package {
 		
 		public var _camera_icon:FlxSprite = new FlxSprite();
 		
+		// game ui?
+		public var _weapons:Array;
+		public var _curr_weap:int = 0;
+		
 		public var debug:Boolean = false;
 		
 		override public function create():void {
@@ -34,6 +40,9 @@ package {
 			
 			this.add(_bullets);
 			
+			// game ui?
+			_weapons = [new M16(), new USAS12(), new AA12()];
+			
 			// front
 			_player.set_pos(Util.WID / 2, Util.HEI / 2);
 			this.add(_player);
@@ -43,6 +52,7 @@ package {
 			this.add(_camera_icon);
 			
 			FlxG.camera.follow(_camera_icon);
+			FlxG.camera.antialiasing = true;	// turn off for more fluent gameplay?
 			
 			FlxG.mouse.show(Resource.IMPORT_MOUSE_RETICLE, 1, -13, -13);
 		}
@@ -105,12 +115,23 @@ package {
 				_is_sprinting = false;
 			}
 			
-			if (FlxG.keys.justPressed(Util.TOGGLE_AIM)) {
+			if (Util.is_key(Util.TOGGLE_AIM, true)) {
 				if (_stance != 1) {
 					_stance = 1;	// aim
+					trace("changed stance to aim");
 				} else {
 					_stance = 0;	// hip
+					trace("changed stance to hip");
 				}
+			}
+			
+			if (Util.is_key(Util.WEAPON_SWITCH, true)) {
+				_curr_weap = Util.key_index(Util.WEAPON_SWITCH);
+				if (_curr_weap > _weapons.length - 1 || _curr_weap < 0) {
+					_curr_weap = 0;
+				}
+				_stance = 0;
+				trace("switched to weapon" + _curr_weap);
 			}
 		}
 		

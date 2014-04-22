@@ -2,7 +2,7 @@ package particles
 {
 	import org.flixel.FlxPoint;
 	
-	public class GunBullet extends BasicBullet {
+	public class GunBullet extends BasicBullet {	
 		public var _speed:Number;
 		public var _distance:Number;
 		private var _damage:Array;
