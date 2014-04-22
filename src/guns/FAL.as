@@ -4,17 +4,17 @@ package guns
 	 * ...
 	 * @author Wenrui Wu
 	 */
-	public class QBZ95 extends Gun {
+	public class FAL extends Gun{
 		
-		public function QBZ95() {
+		public function FAL() {
 			super({
-				name : "Burst Rifle",
+				name : "Semi-auto Rifle",
 				mobility : 0.9,
 				speed : 15,
-				rpm : 1000,
-				burst : [3, 0],
-				brpm : 160,
-				damage : [33, 22],
+				rpm : 400,
+				burst : [1, 0],
+				brpm : 400,
+				damage : [49, 35],
 				range : [420, 960],
 				pellets: 1,
 				mag_size : 30,

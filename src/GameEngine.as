@@ -35,13 +35,13 @@ package {
 		override public function create():void {
 			super.create();
 			
-			_levels.add(new TestLevel(this));
+			_levels.add(new TestLevel());
 			this.add(_levels);
 			
 			this.add(_bullets);
 			
 			// game ui?
-			_weapons = [new M16(), new USAS12(), new AA12()];
+			_weapons = [new M16(), new USAS12(), new AA12(), new QBZ95(), new FAL()];
 			
 			// front
 			_player.set_pos(Util.WID / 2, Util.HEI / 2);

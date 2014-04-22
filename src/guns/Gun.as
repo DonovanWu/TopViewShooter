@@ -63,13 +63,13 @@ package guns
 		
 		override public function update_weapon(game:GameEngine):void {
 			if (triggered()) {
-				// if (_burst != 0 && _ct_brpm >= _brpm) _ct_brpm -= _brpm;
+				if (_burst != 0 && _ct_brpm >= _brpm) _ct_brpm -= _brpm;
 				
 				if (_mag > 0) {
 					if (_ct_rpm >= _rpm) {
 						_ct_rpm -= _rpm;
 						_mag--;
-						// if (_burst != 0) _ct_burst++;
+						if (_burst != 0) _ct_burst++;
 						
 						var ds:Number = 0.0;
 						var dk:Number = 0.0;
@@ -99,6 +99,7 @@ package guns
 						}
 					}
 					_ct_rpm++;
+					_ct_brpm++;
 				} // end if mag > 0
 			} else {
 				// capping the rpm
@@ -107,13 +108,17 @@ package guns
 				} else {
 					_ct_rpm = _rpm;
 				}
+				
+				if (_burst != 0) {
+					if (_ct_brpm < _brpm) {
+						_ct_brpm++;
+					} else {
+						_ct_brpm = _brpm;
+					}
+				}
 			}
 			
-			if (_burst != 0 && _ct_brpm < _brpm) _ct_brpm++;
-			
-			if (_ct_burst >= Math.abs(_burst) && _ct_brpm >= _brpm) {
-				_ct_burst = 0;
-			}
+			if (_ct_burst >= Math.abs(_burst) && _ct_brpm >= _brpm) _ct_burst = 0;
 			
 			if (_mag <= 0) {
 				// call change clip animation, pass this?
@@ -130,9 +135,13 @@ package guns
 				return FlxG.mouse.pressed();
 			} else if (_burst < 0) {
 				// to implement interruptible burst, set _burst < 0
-				return FlxG.mouse.pressed(); // && _ct_burst <= Math.abs(_burst);
+				return FlxG.mouse.pressed() && _ct_burst < Math.abs(_burst);
 			} else {
-				return FlxG.mouse.justPressed(); // || (_ct_burst > 0 && _ct_burst <= Math.abs(_burst));
+				if (_ct_burst == 0) {
+					return FlxG.mouse.justPressed();
+				} else {
+					return _ct_burst < Math.abs(_burst);
+				}
 			}
 		}
 		

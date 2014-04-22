@@ -13,7 +13,7 @@ package guns
 				speed : 15,
 				rpm : 750,
 				burst : [0, 3],
-				brpm : 450,
+				brpm : 750,
 				damage : [33, 22],
 				range : [420, 960],
 				pellets: 1,

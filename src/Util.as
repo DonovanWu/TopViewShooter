@@ -28,7 +28,7 @@ package  {
 		public static var MOVE_SPRINT:Vector.<String> = Vector.<String>(["SHIFT"]);
 		public static var TOGGLE_AIM:Vector.<String> = Vector.<String>(["SPACE"]);
 		
-		public static var WEAPON_SWITCH:Vector.<String> = Vector.<String>(["ONE", "TWO", "THREE", "FOUR"]);
+		public static var WEAPON_SWITCH:Vector.<String> = Vector.<String>(["ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX"]);
 		
 		public static var MOVE_SPEED:Number = 2.0;
 		public static var SPRINT_SPEED:Number = 3.5;

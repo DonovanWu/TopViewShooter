@@ -14,7 +14,6 @@ package core {
 		public var _ang:Number = 0;
 		public var _movespeed:Number = Util.MOVE_SPEED;
 		private var _mobility:Number;
-		private var _basespd:Number;
 		
 		public var _body:FlxSprite = new FlxSprite();
 		public var _hitbox:FlxSprite = new FlxSprite();
@@ -36,8 +35,7 @@ package core {
 			_weapon = new M16();
 			this.add(_weapon);
 			
-			_basespd = Util.MOVE_SPEED;
-			_movespeed = _basespd * _weapon.mobility();
+			_movespeed = Util.MOVE_SPEED * _weapon.mobility();
 		}
 		
 		public function update_player(game:GameEngine):void {
@@ -61,11 +59,11 @@ package core {
 		}
 		
 		public function sprint():void {
-			_movespeed = _basespd * _weapon.mobility();
+			_movespeed = Util.SPRINT_SPEED * _weapon.mobility();
 		}
 		
 		public function restore_movespeed():void {
-			_movespeed = _basespd * _weapon.mobility();
+			_movespeed = Util.MOVE_SPEED * _weapon.mobility();
 		}
 		
 		public function position():FlxPoint {
