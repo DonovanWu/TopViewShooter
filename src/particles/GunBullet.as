@@ -8,16 +8,17 @@ package particles
 		private var _damage:Array;
 		private var _range:Array;
 		
+
 		public function GunBullet(pos:FlxPoint, ang:Number, spd:Number, dmg:Array, rg:Array) {
 			// default: damage = 0
 			super(pos.x, pos.y);
-			
+
 			this._speed = spd;
 			rotate(ang);
 			this._distance = 0;
 			this._range = rg;
 			this._damage = dmg;
-			
+
 			this.loadGraphic(Resource.IMPORT_GUN_BULLET);
 		}
 		
@@ -41,7 +42,7 @@ package particles
 			this.y += _speed * Math.sin(this.angle * Util.RADIAN);
 			_distance += _speed;
 			
-			_curr_dmg = _damage[curr_dmg_index()];
+			_dmg = _damage[curr_dmg_index()];
 		}
 		
 		override public function should_remove():Boolean {

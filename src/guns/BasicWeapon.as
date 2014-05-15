@@ -10,15 +10,18 @@ package guns
 	
 	public class BasicWeapon extends FlxSprite{
 		protected var _stat:Object;
-		public var _offset:FlxPoint;
+		public var _offset:FlxPoint = new FlxPoint();
 		
 		public function BasicWeapon(stat:Object) {
 			this._stat = stat;
-			this._offset = new FlxPoint();
+		}
+		
+		public function name():String {
+			return _stat.name;
 		}
 		
 		public function mobility():Number {
-			return 1.0;
+			return _stat.mobility;
 		}
 		
 		public function update_weapon(game:GameEngine):void { }

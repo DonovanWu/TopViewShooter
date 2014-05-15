@@ -7,18 +7,34 @@ package guns
 	
 	import org.flixel.FlxG;
 	import org.flixel.FlxPoint;
+	import particles.BasicBullet;
 	import particles.GunBullet;
 	
 	public class Gun extends BasicWeapon {
-		public var _mag:int;
-		public var _ammo:int;
+		public var _g:GameEngine;
 		
+		/* move everything out of stat object?
+		private var _name:String;
+		private var _mobility:Number;
+		private var _speed:Number;
+		private var _damage:Array;
+		private var _range:Array;
+		private var _pellets:uint;
+		*/
+		
+		public var _mag:int;	// ammo in the mag
+		public var _ammo:int;	// total ammo
+		
+		// gun position info
+		
+		// gun mechanic varaibles
 		private var _ct_rpm:Number;
 		private var _ct_brpm:Number;
 		private var _rpm:Number;
 		private var _brpm:Number;
 		private var _burst:int;		// 0 for auto
 		private var _ct_burst:int;
+		private var _fire_mode:int = 0;
 		
 		public function Gun(stat:Object) {
 			/* Sample stat:
@@ -32,16 +48,17 @@ package guns
 				damage : [33, 22],
 				range : [420, 960],
 				pellets: 1,
-				mag_size : 300,
+				mag_size : 30,
 				max_clips : 3,
 				spread : {hip : 7, aim : 2, prone : 1.5},
-				kick : { hip : 5, aim : 3, prone : 2 }
+				kick : { hip : 5, aim : 3, prone : 2 },
+				ads_mvspd : 0.5
 			} 
 			*/
 			
 			super(stat);
 			
-			this._burst = _stat.burst[0];
+			this._burst = _stat.burst[_fire_mode];
 			
 			this._mag = _stat.mag_size;
 			this._ammo = _stat.max_clip * _mag;
@@ -62,6 +79,7 @@ package guns
 		}
 		
 		override public function update_weapon(game:GameEngine):void {
+			_g = game;
 			if (triggered()) {
 				if (_burst != 0 && _ct_brpm >= _brpm) _ct_brpm -= _brpm;
 				
@@ -91,11 +109,11 @@ package guns
 							ang = ang + Util.float_random(-ds, ds);
 							var player_pos:FlxPoint = game._player.position();
 							var kick:Number = Util.float_random( -dk, dk);
-							var muzzle_pos:FlxPoint = Util.calibrate_pos(player_pos.x, player_pos.y, 10, kick, ang);
+							var muzzle_pos:FlxPoint = 
+								Util.calibrate_pos(player_pos.x, player_pos.y,
+												   _offset.x + this.width, _offset.y + kick + this.height / 2, ang);
 							
-							var bullet:GunBullet = 
-								new GunBullet(muzzle_pos, ang, _stat.speed, _stat.damage, _stat.range);
-							game._bullets.add(bullet);
+							spawn_bullet(muzzle_pos, ang);
 						}
 					}
 					_ct_rpm++;
@@ -125,17 +143,33 @@ package guns
 			}
 		}
 		
+		protected function spawn_bullet(muzzle_pos:FlxPoint, ang:Number):void {
+			var bullet:GunBullet = 
+				new GunBullet(muzzle_pos, ang, _stat.speed, _stat.damage, _stat.range);
+			_g._bullets.add(bullet);
+		}
+		
 		override public function mobility():Number {
-			return _stat.mobility;
+			var multi:Number = 1;
+			if (_g != null && _g._stance != 0) {
+				multi = _stat.ads_mvspd;
+			}
+			return _stat.mobility * multi;
 		}
 		
 		// differentiates types of triggering
 		private function triggered():Boolean {
+			if (_g._is_sprinting) return false;
+			
 			if (_burst == 0) {
 				return FlxG.mouse.pressed();
 			} else if (_burst < 0) {
-				// to implement interruptible burst, set _burst < 0
-				return FlxG.mouse.pressed() && _ct_burst < Math.abs(_burst);
+				// to implement interruptible burst, just set burst < 0
+				if (_ct_burst == 0) {
+					return FlxG.mouse.justPressed();
+				} else {
+					return FlxG.mouse.pressed() && _ct_burst < Math.abs(_burst);
+				}
 			} else {
 				if (_ct_burst == 0) {
 					return FlxG.mouse.justPressed();
@@ -145,8 +179,12 @@ package guns
 			}
 		}
 		
+		// to be called in GameEngine, game control part
 		public function select_fire():void {
-			return;
+			if (_stat.burst.length > 1) {
+				_fire_mode = Util.nextInt(0, _stat.burst.length - 1, _fire_mode);
+				_burst = _stat.burst[_fire_mode];
+			}
 		}
 		
 		public function set_ammo(ammo:int):void {

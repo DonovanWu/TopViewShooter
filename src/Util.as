@@ -1,4 +1,5 @@
 package  {
+	import adobe.utils.CustomActions;
 	import flash.display.Sprite;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
@@ -27,6 +28,7 @@ package  {
 		public static var MOVE_DOWN:Vector.<String> = Vector.<String>(["S", "DOWN"]);
 		public static var MOVE_SPRINT:Vector.<String> = Vector.<String>(["SHIFT"]);
 		public static var TOGGLE_AIM:Vector.<String> = Vector.<String>(["SPACE"]);
+		public static var SELECT_FIRE:Vector.<String> = Vector.<String>(["F"]);
 		
 		public static var WEAPON_SWITCH:Vector.<String> = Vector.<String>(["ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX"]);
 		
@@ -113,6 +115,10 @@ package  {
 			}
 		}
 		
+		public static function distance(a:FlxObject,b:FlxObject):Number {
+			return point_dist(a.x, a.y, b.x, b.y);
+		}
+		
 		public static function point_dist(ax:Number, ay:Number, bx:Number, by:Number):Number {
 			return Math.sqrt(Math.pow(by - ay, 2) + Math.pow(bx - ax, 2));
 		}
@@ -150,6 +156,15 @@ package  {
 			var new_y:Number = y + dr * Math.sin(theta);
 			
 			return new FlxPoint(new_x, new_y);
+		}
+		
+		public static function nextInt(min:int, max:int, curr:int):int {
+			var nxt:int = curr + 1;
+			if (nxt > max) {
+				return min;
+			} else {
+				return nxt;
+			}
 		}
 	}
 

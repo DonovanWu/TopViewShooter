@@ -41,7 +41,7 @@ package {
 			this.add(_bullets);
 			
 			// game ui?
-			_weapons = [new M16(), new USAS12(), new AA12(), new QBZ95(), new FAL()];
+			_weapons = [new M16(), new SPAS12(), new AA12(), new QBZ95(), new FAL(), new M1216()];
 			
 			// front
 			_player.set_pos(Util.WID / 2, Util.HEI / 2);
@@ -131,7 +131,12 @@ package {
 					_curr_weap = 0;
 				}
 				_stance = 0;
-				trace("switched to weapon" + _curr_weap);
+				trace("switched to weapon: " + _weapons[_curr_weap].name());
+			}
+			
+			if (Util.is_key(Util.SELECT_FIRE, true) && (_weapons[_curr_weap] is Gun)) {
+				_weapons[_curr_weap].select_fire();
+				trace("select fire");
 			}
 		}
 		
