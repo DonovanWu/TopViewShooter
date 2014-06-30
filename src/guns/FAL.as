@@ -23,10 +23,11 @@ package guns
 				kick : { hip : 5, aim : 1.5, prone : 1 },
 				ads_mvspd : 0.5
 			});
-			
-			this.loadGraphic(Resource.IMPORT_WEAPON_M16);
 		}
 		
+		protected override function loadWeapGraphic():void {
+			this.loadGraphic(Resource.IMPORT_WEAPON_M16);
+		}
 	}
 
 }

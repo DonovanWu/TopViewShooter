@@ -18,7 +18,7 @@ package core {
 		public var _body:FlxSprite = new FlxSprite();
 		public var _hitbox:FlxSprite = new FlxSprite();
 		
-		public var _weapon:BasicWeapon;
+		public var _weapon:BasicWeapon = new AA12();
 		
 		public var _g:GameEngine;
 		
@@ -32,7 +32,6 @@ package core {
 			_hitbox.visible = false;
 			this.add(_hitbox);
 			
-			_weapon = new M16();
 			this.add(_weapon);
 			
 			_movespeed = Util.MOVE_SPEED * _weapon.mobility();

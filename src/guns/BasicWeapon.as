@@ -14,7 +14,10 @@ package guns
 		
 		public function BasicWeapon(stat:Object) {
 			this._stat = stat;
+			loadWeapGraphic();
 		}
+		
+		protected function loadWeapGraphic():void { }
 		
 		public function name():String {
 			return _stat.name;

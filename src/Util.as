@@ -166,6 +166,23 @@ package  {
 				return nxt;
 			}
 		}
+		
+		public static function multi_trace(args:Array, names:Array, br:Boolean = false):void {
+			var text:String = "";
+			if (args != null && names != null && args.length == names.length) {
+				for (var i:int = 0; i < args.length; i++ ) {
+					text += names[i] + ": " + args[i];
+					if (br) {
+						text += "\n";
+					} else {
+						text += "; ";
+					}
+				}
+			} else {
+				text = "Input Error: null arguments and/or names or inputs' length doesn't match.";
+			}
+			trace(text);
+		}
 	}
 
 }
