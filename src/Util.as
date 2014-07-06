@@ -16,6 +16,7 @@ package  {
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
+	import particles.GunBullet;
 	
 	public class Util {
 
@@ -182,6 +183,13 @@ package  {
 				text = "Input Error: null arguments and/or names or inputs' length doesn't match.";
 			}
 			trace(text);
+		}
+		
+		// rotate a sprite in respect to its left end, ang should be in radian
+		public static function rotate(spr:FlxSprite, ang:Number):void {
+			spr.angle = ang * DEGREE;
+			spr.x -= spr.width / 2 * (1 - Math.cos(ang));
+			spr.y += spr.width / 2 * Math.sin(ang);
 		}
 	}
 

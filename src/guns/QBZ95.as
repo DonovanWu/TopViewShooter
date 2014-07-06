@@ -7,8 +7,9 @@ package guns
 	public class QBZ95 extends Gun {
 		
 		public function QBZ95() {
-			super({
-				name : "Burst Rifle",
+			super( {
+				name: "QBZ95",
+				used_name : "Burst Rifle",
 				mobility : 0.9,
 				speed : 15,
 				rpm : 1000,
@@ -25,9 +26,11 @@ package guns
 			});
 		}
 		
+		/*
 		protected override function loadWeapGraphic():void {
 			this.loadGraphic(Resource.IMPORT_WEAPON_M16);
 		}
+		*/
 	}
 
 }

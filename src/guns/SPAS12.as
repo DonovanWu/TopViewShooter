@@ -7,8 +7,9 @@ package guns
 	public class SPAS12 extends Gun {
 		
 		public function SPAS12() {
-			super({
-				name : "Semi-auto Shotgun",
+			super( {
+				name: "SPAS12",
+				used_name : "Semi-auto Shotgun",
 				mobility : 1,
 				speed : 12,
 				rpm : 180,
@@ -25,9 +26,11 @@ package guns
 			});
 		}
 		
+		/*
 		protected override function loadWeapGraphic():void {
 			this.loadGraphic(Resource.IMPORT_WEAPON_M16);
 		}
+		*/
 	}
 
 }

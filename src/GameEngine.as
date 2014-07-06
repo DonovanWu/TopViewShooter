@@ -26,6 +26,7 @@ package {
 		public var _stance:int = 0;	// 0 for hip, 1 for aim, -1 for prone
 		
 		public var _camera_icon:FlxSprite = new FlxSprite();
+		public var _test_obj:FlxSprite = new FlxSprite();
 		
 		// game ui?
 		public var _weapons:Array;

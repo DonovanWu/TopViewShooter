@@ -12,14 +12,15 @@ package particles
 		public function GunBullet(pos:FlxPoint, ang:Number, spd:Number, dmg:Array, rg:Array) {
 			// default: damage = 0
 			super(pos.x, pos.y);
-
+			
 			this._speed = spd;
-			rotate(ang);
 			this._distance = 0;
 			this._range = rg;
 			this._damage = dmg;
 
 			this.loadGraphic(Resource.IMPORT_GUN_BULLET);
+			Util.rotate(this, ang * Util.RADIAN);
+			// rotate(ang);
 		}
 		
 		private function curr_dmg_index():int {

@@ -7,8 +7,9 @@ package guns
 	public class AA12 extends Gun {
 		
 		public function AA12() {
-			super({
-				name : "Full-auto Shotgun",
+			super( {
+				name : "AA12",
+				used_name : "Full-auto Shotgun",
 				mobility : 1,
 				speed : 12,
 				rpm : 400,
@@ -25,9 +26,11 @@ package guns
 			});
 		}
 		
+		/*
 		protected override function loadWeapGraphic():void {
 			this.loadGraphic(Resource.IMPORT_WEAPON_AA12);
 		}
+		*/
 	}
 
 }

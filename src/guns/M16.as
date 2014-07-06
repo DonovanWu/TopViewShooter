@@ -7,8 +7,9 @@ package guns
 	public class M16 extends Gun {
 		
 		public function M16() {
-			super({
-				name : "Full-auto Rifle",
+			super( {
+				name : "M16",
+				used_name : "Full-auto Rifle",
 				mobility : 0.9,
 				speed : 15,
 				rpm : 750,
@@ -17,7 +18,7 @@ package guns
 				damage : [33, 22],
 				range : [420, 960],
 				pellets: 1,
-				mag_size : 30,
+				mag_size : 1000,
 				max_clips : 3,
 				spread : {hip : 7, aim : 2, prone : 1.5},
 				kick : { hip : 5, aim : 3, prone : 2 },
@@ -25,9 +26,11 @@ package guns
 			});
 		}
 		
+		/*
 		protected override function loadWeapGraphic():void {
 			this.loadGraphic(Resource.IMPORT_WEAPON_M16);
 		}
+		*/
+	
 	}
-
 }

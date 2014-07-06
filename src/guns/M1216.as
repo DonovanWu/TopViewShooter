@@ -9,8 +9,9 @@ package guns
 		
 		public function M1216() 
 		{
-			super({
-				name : "Burst Shotgun",
+			super( {
+				name : "M1216",
+				used_name : "Burst Shotgun",
 				mobility : 1,
 				speed : 12,
 				rpm : 450,
@@ -27,9 +28,11 @@ package guns
 			});
 		}
 		
+		/*
 		protected override function loadWeapGraphic():void {
 			this.loadGraphic(Resource.IMPORT_WEAPON_M16);
 		}
+		*/
 	}
 
 }

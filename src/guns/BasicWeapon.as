@@ -5,6 +5,7 @@ package guns
 	 * @author Wenrui Wu
 	 */
 	
+	import core.Player;
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	
@@ -14,10 +15,11 @@ package guns
 		
 		public function BasicWeapon(stat:Object) {
 			this._stat = stat;
-			loadWeapGraphic();
+			this.visible = false;
+			// loadWeapGraphic();
 		}
 		
-		protected function loadWeapGraphic():void { }
+		// protected function loadWeapGraphic():void { }
 		
 		public function name():String {
 			return _stat.name;
@@ -27,7 +29,7 @@ package guns
 			return _stat.mobility;
 		}
 		
-		public function update_weapon(game:GameEngine):void { }
+		public function update_weapon(game:GameEngine, player:Player):void { }
 	}
 
 }

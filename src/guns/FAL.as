@@ -7,8 +7,9 @@ package guns
 	public class FAL extends Gun{
 		
 		public function FAL() {
-			super({
-				name : "Semi-auto Rifle",
+			super( {
+				name : "FAL",
+				used_name : "Semi-auto Rifle",
 				mobility : 0.9,
 				speed : 15,
 				rpm : 400,
@@ -25,9 +26,11 @@ package guns
 			});
 		}
 		
+		/*
 		protected override function loadWeapGraphic():void {
 			this.loadGraphic(Resource.IMPORT_WEAPON_M16);
 		}
+		*/
 	}
 
 }

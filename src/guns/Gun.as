@@ -5,6 +5,7 @@ package guns
 	 * @author Wenrui Wu
 	 */
 	
+	import core.Player;
 	import org.flixel.FlxG;
 	import org.flixel.FlxPoint;
 	import particles.BasicBullet;
@@ -37,7 +38,9 @@ package guns
 		private var _fire_mode:int = 0;
 		
 		public function Gun(stat:Object) {
-			/* Sample stat:
+			/*
+			 * Bullet emitter
+			 * Sample stat:
 			{
 				name : "Assault Rifle",
 				mobility : 0.9,
@@ -74,11 +77,11 @@ package guns
 			_ct_rpm = _rpm;
 			_ct_brpm = _brpm;
 			
-			_offset = _offset.make(10, 5);
+			_offset = _offset.make(10, 10);	// todo: customize with each gun picture's actual length
 			_ct_burst = 0;
 		}
 		
-		override public function update_weapon(game:GameEngine):void {
+		override public function update_weapon(game:GameEngine, player:Player):void {
 			_g = game;
 			if (triggered()) {
 				if (_burst != 0 && _ct_brpm >= _brpm) _ct_brpm -= _brpm;
@@ -105,13 +108,13 @@ package guns
 						}
 						
 						for (var i:int = 1; i <= _stat.pellets; i++) {
-							var ang:Number = game._player._ang * Util.DEGREE;
+							var ang:Number = player._ang * Util.DEGREE;
 							ang = ang + Util.float_random(-ds, ds);
-							var player_pos:FlxPoint = game._player.position();
+							var player_pos:FlxPoint = player.position();
 							var kick:Number = Util.float_random( -dk, dk);
 							var muzzle_pos:FlxPoint = 
 								Util.calibrate_pos(player_pos.x, player_pos.y,
-												   _offset.x + this.width, _offset.y + kick + this.height / 2, ang);
+												   _offset.x, _offset.y + kick, ang);
 							
 							spawn_bullet(muzzle_pos, ang);
 						}
