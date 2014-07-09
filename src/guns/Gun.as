@@ -102,9 +102,11 @@ package guns
 							case 1 : // aim
 								ds = _stat.spread.aim;
 								dk = _stat.kick.aim;
+								break;
 							case -1 : // prone
 								ds = _stat.spread.prone;
 								dk = _stat.kick.prone;
+								break;
 						}
 						
 						for (var i:int = 1; i <= _stat.pellets; i++) {
@@ -114,7 +116,7 @@ package guns
 							var kick:Number = Util.float_random( -dk, dk);
 							var muzzle_pos:FlxPoint = 
 								Util.calibrate_pos(player_pos.x, player_pos.y,
-												   _offset.x, _offset.y + kick, ang);
+												   _offset.x, _offset.y + kick, ang * Util.RADIAN);
 							
 							spawn_bullet(muzzle_pos, ang);
 						}
@@ -149,6 +151,8 @@ package guns
 		protected function spawn_bullet(muzzle_pos:FlxPoint, ang:Number):void {
 			var bullet:GunBullet = 
 				new GunBullet(muzzle_pos, ang, _stat.speed, _stat.damage, _stat.range);
+			muzzle_pos = Util.repos2ctr(bullet, muzzle_pos, ang * Util.RADIAN);
+			bullet.set_position(muzzle_pos.x, muzzle_pos.y);
 			_g._bullets.add(bullet);
 		}
 		

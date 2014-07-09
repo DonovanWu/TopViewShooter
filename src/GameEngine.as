@@ -25,6 +25,7 @@ package {
 		public var _is_sprinting:Boolean = false;
 		public var _stance:int = 0;	// 0 for hip, 1 for aim, -1 for prone
 		
+		public var _reticle:FlxSprite = new FlxSprite();
 		public var _camera_icon:FlxSprite = new FlxSprite();
 		public var _test_obj:FlxSprite = new FlxSprite();
 		
@@ -32,7 +33,7 @@ package {
 		public var _weapons:Array;
 		public var _curr_weap:int = 0;
 		
-		public var debug:Boolean = false;
+		public var debug:Boolean = true;
 		
 		override public function create():void {
 			super.create();

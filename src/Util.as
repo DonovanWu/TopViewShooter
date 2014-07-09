@@ -150,13 +150,22 @@ package  {
 			
 		}
 		
+		// ang is in radian
 		public static function calibrate_pos(x:Number, y:Number, dx:Number, dy:Number, ang:Number):FlxPoint {
-			var theta:Number = Math.atan2(dy, dx) + ang * RADIAN;
+			var theta:Number = Math.atan2(dy, dx) + ang;
 			var dr:Number = Math.sqrt(dx * dx + dy * dy);
 			var new_x:Number = x + dr * Math.cos(theta);
 			var new_y:Number = y + dr * Math.sin(theta);
 			
 			return new FlxPoint(new_x, new_y);
+		}
+		
+		// ang is in radian; do this if you want to match up with center at left end of the sprite
+		public static function repos2ctr(spr:FlxSprite, pos:FlxPoint, ang:Number):FlxPoint {
+			var x:Number = pos.x + Math.sin(ang) * spr.height / 2;
+			var y:Number = pos.y - Math.cos(ang) * spr.height / 2;
+			
+			return new FlxPoint(x, y);
 		}
 		
 		public static function nextInt(min:int, max:int, curr:int):int {

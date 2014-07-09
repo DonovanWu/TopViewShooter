@@ -8,9 +8,8 @@ package particles
 		private var _damage:Array;
 		private var _range:Array;
 		
-
 		public function GunBullet(pos:FlxPoint, ang:Number, spd:Number, dmg:Array, rg:Array) {
-			// default: damage = 0
+			// default: damage is 1 --> _dmg = 1
 			super(pos.x, pos.y);
 			
 			this._speed = spd;
@@ -19,8 +18,9 @@ package particles
 			this._damage = dmg;
 
 			this.loadGraphic(Resource.IMPORT_GUN_BULLET);
-			Util.rotate(this, ang * Util.RADIAN);
-			// rotate(ang);
+			// Util.rotate(this, ang * Util.RADIAN);
+			this.setOriginToCorner();
+			this.angle = ang;	// ang is in degree
 		}
 		
 		private function curr_dmg_index():int {
@@ -30,12 +30,6 @@ package particles
 				}
 			}
 			return _range.length - 1;
-		}
-		
-		private function rotate(ang:Number):void {
-			this.angle = ang;
-			this.x -= 15 * (1 - Math.cos(ang * Util.RADIAN));
-			this.y += 15 * Math.sin(ang * Util.RADIAN);
 		}
 		
 		override public function update_bullet(game:GameEngine):void {

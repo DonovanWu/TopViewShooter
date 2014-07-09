@@ -16,6 +16,8 @@ package  {
 
 // particles
 		[Embed( source = "../resc/particles/bullet.png" )] public static var IMPORT_GUN_BULLET:Class;
+		[Embed( source = "../resc/particles/particle_1x1.png" )] public static var IMPORT_PARTICLE_S:Class;
+		[Embed( source = "../resc/particles/particle_2x2.png" )] public static var IMPORT_PARTICLE_L:Class;
 
 // player
 		[Embed( source = "../resc/characters/player_body.png" )] public static var IMPORT_PLAYER_BODY:Class;

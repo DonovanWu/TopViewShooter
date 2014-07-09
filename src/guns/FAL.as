@@ -18,10 +18,10 @@ package guns
 				damage : [49, 35],
 				range : [420, 960],
 				pellets: 1,
-				mag_size : 30,
+				mag_size : 240,
 				max_clips : 3,
-				spread : {hip : 10, aim : 1, prone : 1},
-				kick : { hip : 5, aim : 1.5, prone : 1 },
+				spread : { hip : 10, aim : 1, prone : 0.5 },
+				kick : { hip : 5, aim : 1, prone : 0.5 },
 				ads_mvspd : 0.5
 			});
 		}
