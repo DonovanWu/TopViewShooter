@@ -28,6 +28,9 @@ package guns
 		public var _ammo:int;	// total ammo
 		
 		// gun position info
+		/*
+		 * _offset: inherited from super class
+		 */
 		
 		// gun mechanic varaibles
 		private var _ct_rpm:Number;
@@ -98,7 +101,7 @@ package guns
 						
 						var ds:Number = 0.0;
 						var dk:Number = 0.0;
-						switch (game._stance) {
+						switch (_g._stance) {
 							case 0 : // hip
 								ds = _stat.spread.hip;
 								dk = _stat.kick.hip;
@@ -114,13 +117,13 @@ package guns
 						}
 						
 						for (var i:int = 1; i <= _stat.pellets; i++) {
-							var ang:Number = player._ang * Util.DEGREE;
+							var ang:Number = _p._ang * Util.DEGREE;
 							ang = ang + Util.float_random(-ds, ds);
-							var player_pos:FlxPoint = player.position();
+							var player_pos:FlxPoint = _p.position();
 							var kick:Number = Util.float_random( -dk, dk);
 							var muzzle_pos:FlxPoint = 
 								Util.calibrate_pos(player_pos.x, player_pos.y,
-												   _offset.x, _offset.y + kick, ang * Util.RADIAN);
+												_offset.x + _p._wg.width, _offset.y + kick, ang * Util.RADIAN);
 							
 							spawn_bullet(muzzle_pos, ang);
 						}
@@ -205,9 +208,9 @@ package guns
 			this._ammo = ammo;
 		}
 		
-		protected function make_offset():void {
+		override protected function make_offset():void {
 			// default offset, suits for AR, SMG, LMG, DMR, SR, SG, do not override if using default
-			_offset = _offset.make(-5 + _p._wg.width, 12);
+			_offset = _offset.make(-5, 12);
 		}
 	}
 

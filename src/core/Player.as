@@ -70,7 +70,7 @@ package core {
 			_hitbox.visible = _g.debug;
 			
 			_weapon = _g._weapons[_g._curr_weap];
-			_weap_off = _weap_off.make(_weapon._offset.x - _wg.width, _weapon._offset.y);
+			_weap_off = _weap_off.make(_weapon._offset.x, _weapon._offset.y);
 			
 			_weapon.update_weapon(_g, this);
 			weapon_mapping();
@@ -86,14 +86,14 @@ package core {
 			_weap_pos = Util.calibrate_pos(x(), y(), _weap_off.x, _weap_off.y, _ang);
 			
 			// update angle
-			// _weap_pos = Util.calibrate_pos(x(), y(), 0, _weapon._offset.y, _ang);
-			var dy:Number = FlxG.mouse.y - _weap_pos.y;
-			var dx:Number = FlxG.mouse.x - _weap_pos.x;
-			if (Math.abs(dy) < Math.abs(_weap_off.y) || Math.abs(dx) < Math.abs(_weap_off.x)) {
-				// trace("spin prevention");
-				dy = FlxG.mouse.y - y();
-				dx = FlxG.mouse.x - x();
+			var dy:Number = FlxG.mouse.y - y();
+			var dx:Number = FlxG.mouse.x - x();
+			if (dy*dy + dx*dx > _weap_off.x*_weap_off.x + _weap_off.y*_weap_off.y) {
+				// spin-prevented match-up to muzzle position
+				dy = FlxG.mouse.y - _weap_pos.y;
+				dx = FlxG.mouse.x - _weap_pos.x;
 			}
+			
 			_ang = Math.atan2(dy, dx);
 			_body.angle = _ang * Util.DEGREE;
 			_hitbox.angle = _ang * Util.DEGREE;

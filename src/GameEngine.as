@@ -67,7 +67,15 @@ package {
 			_player.update_player(this);
 			update_control();
 			
-			_camera_icon.set_position((_player.x() + FlxG.mouse.x) / 2, (_player.y() + FlxG.mouse.y) / 2);
+			/*
+			_camera_icon.set_position((_player.x() + FlxG.mouse.x - _camera_icon.width) / 2,
+									(_player.y() + FlxG.mouse.y - _camera_icon.height) / 2);
+			// problem: gun position will be considered "out of screen" and not be loaded at right-bottom corner
+			*/
+			/**/
+			_camera_icon.set_position((_player.x() + FlxG.mouse.x) / 2,
+									(_player.y() + FlxG.mouse.y) / 2);
+			/**/
 		}
 		
 		private function update_bullets():void {

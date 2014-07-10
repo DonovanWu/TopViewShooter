@@ -21,6 +21,9 @@ package guns
 		
 		// protected function loadWeapGraphic():void { }
 		
+		// note: currently offset.x shouldn't be < -5
+		protected function make_offset():void { }
+		
 		public function name():String {
 			return _stat.name;
 		}
