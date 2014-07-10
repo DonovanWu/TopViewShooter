@@ -9,7 +9,7 @@ package guns
 		public function FAL() {
 			super( {
 				name : "FAL",
-				used_name : "Semi-auto Rifle",
+				display_name : "Semi-auto Rifle",
 				mobility : 0.9,
 				speed : 15,
 				rpm : 400,

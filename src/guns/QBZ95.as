@@ -9,13 +9,13 @@ package guns
 		public function QBZ95() {
 			super( {
 				name: "QBZ95",
-				used_name : "Burst Rifle",
+				display_name : "Burst Rifle",
 				mobility : 0.9,
 				speed : 15,
 				rpm : 1000,
-				burst : [-3, 0],
+				burst : [3, 0],
 				brpm : 160,
-				damage : [33, 22],
+				damage : [35, 20],
 				range : [420, 960],
 				pellets: 1,
 				mag_size : 300,

@@ -13,6 +13,7 @@ package guns
 	
 	public class Gun extends BasicWeapon {
 		public var _g:GameEngine;
+		public var _p:Player;
 		
 		/* move everything out of stat object?
 		private var _name:String;
@@ -76,13 +77,16 @@ package guns
 			}
 			_ct_rpm = _rpm;
 			_ct_brpm = _brpm;
-			
-			_offset = _offset.make(10, 12);	// todo: customize with each gun picture's actual length
 			_ct_burst = 0;
 		}
 		
 		override public function update_weapon(game:GameEngine, player:Player):void {
 			_g = game;
+			_p = player;
+			
+			// update offset
+			make_offset();
+			
 			if (triggered()) {
 				if (_burst != 0 && _ct_brpm >= _brpm) _ct_brpm -= _brpm;
 				
@@ -199,6 +203,11 @@ package guns
 				ammo = 0;
 			}
 			this._ammo = ammo;
+		}
+		
+		protected function make_offset():void {
+			// default offset, suits for AR, SMG, LMG, DMR, SR, SG, do not override if using default
+			_offset = _offset.make(-5 + _p._wg.width, 12);
 		}
 	}
 

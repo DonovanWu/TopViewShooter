@@ -9,7 +9,7 @@ package guns
 		public function M16() {
 			super( {
 				name : "M16",
-				used_name : "Full-auto Rifle",
+				display_name : "Full-auto Rifle",
 				mobility : 0.9,
 				speed : 15,
 				rpm : 750,
@@ -20,7 +20,7 @@ package guns
 				pellets: 1,
 				mag_size : 300,
 				max_clips : 3,
-				spread : {hip : 7, aim : 2, prone : 1.5},
+				spread : {hip : 8, aim : 2.5, prone : 1.5},
 				kick : { hip : 5, aim : 3, prone : 2 },
 				ads_mvspd : 0.5
 			});

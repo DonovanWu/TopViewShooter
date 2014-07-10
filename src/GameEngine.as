@@ -6,7 +6,6 @@ package {
 	
 	import flash.display.*;
 	import guns.*;
-	import org.flixel.plugin.photonstorm.FlxExtendedSprite;
 	import particles.BasicBullet;
 	
 	import core.Player;
