@@ -77,7 +77,7 @@ package guns
 			_ct_rpm = _rpm;
 			_ct_brpm = _brpm;
 			
-			_offset = _offset.make(10, 10);	// todo: customize with each gun picture's actual length
+			_offset = _offset.make(10, 12);	// todo: customize with each gun picture's actual length
 			_ct_burst = 0;
 		}
 		

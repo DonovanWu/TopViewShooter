@@ -22,7 +22,10 @@ package core {
 		private var _mobility:Number;
 		
 		public var _body:FlxSprite = new FlxSprite();
+		public var _limbs:FlxSprite = new FlxSprite();
 		public var _hitbox:FlxSprite = new FlxSprite();
+		public var _weap_pos:FlxPoint = new FlxPoint();
+		public var _weap_off:FlxPoint = new FlxPoint();
 		
 		public var _debugbox:FlxSprite = new FlxSprite();
 		
@@ -32,6 +35,15 @@ package core {
 		public var _g:GameEngine;
 		
 		public function Player() {
+			// layer (bottom -> top) : limbs, weapon, body
+			_limbs.loadGraphic(Resource.IMPORT_PLAYER_LIMBS);
+			_limbs.origin.x = _limbs.origin.y = 15;
+			this.add(_limbs);
+			
+			this.add(_weapon);
+			this.add(_wg);
+			// _wg.visible = false;
+			
 			// origin of player's coordinate is at the center of hitbox
 			_body.loadGraphic(Resource.IMPORT_PLAYER_BODY);
 			this.add(_body);
@@ -40,10 +52,6 @@ package core {
 			_hitbox.alpha = 0.5;
 			_hitbox.visible = false;
 			this.add(_hitbox);
-			
-			this.add(_weapon);
-			this.add(_wg);
-			// _wg.visible = false;
 			
 			_movespeed = Util.MOVE_SPEED * _weapon.mobility();
 			
@@ -60,11 +68,21 @@ package core {
 			_hitbox.visible = _g.debug;
 			
 			_weapon = _g._weapons[_g._curr_weap];
+			_weap_off = _weap_off.make(0, _weapon._offset.y);
 			
-			var weap_pos:FlxPoint = Util.calibrate_pos(x(), y(), 5, _weapon._offset.y, _ang);
-			_ang = Math.atan2(FlxG.mouse.y - weap_pos.y, FlxG.mouse.x - weap_pos.x);
+			// _weap_pos = Util.calibrate_pos(x(), y(), 0, _weapon._offset.y, _ang);
+			var dy:Number = FlxG.mouse.y - _weap_pos.y;
+			var dx:Number = FlxG.mouse.x - _weap_pos.x;
+			if (Math.abs(dy) <= Math.abs(_weap_off.y) || Math.abs(dx) <= Math.abs(_weap_off.x)) {
+				// spin prevention
+				trace("spin prevention");
+				dy = FlxG.mouse.y - y();
+				dx = FlxG.mouse.x - x();
+			}
+			_ang = Math.atan2(dy, dx);
 			_body.angle = _ang * Util.DEGREE;
 			_hitbox.angle = _ang * Util.DEGREE;
+			_limbs.angle = _ang * Util.DEGREE;
 			
 			_weapon.update_weapon(_g, this);
 			weapon_mapping();
@@ -75,13 +93,14 @@ package core {
 		override public function update_position():void {
 			_hitbox.set_position(x() - _hitbox.width / 2 ,y() -_hitbox.height / 2);
 			_body.set_position(x() -_body.width / 2, y() -_body.height / 2);
+			_limbs.set_position(_body.x, _body.y);
+			_weap_pos = Util.calibrate_pos(x(), y(), _weap_off.x, _weap_off.y, _ang);
 			
-			var weap_pos:FlxPoint = Util.calibrate_pos(x(), y(), 5, _weapon._offset.y, _ang);
-			if (true) {
-				_debugbox.set_position(weap_pos.x, weap_pos.y);
+			if (_g != null && _g.debug) {
+				_debugbox.set_position(_weap_pos.x, _weap_pos.y);
 			}
-			weap_pos = Util.repos2ctr(_wg, weap_pos, _ang);
-			_wg.set_position(weap_pos.x, weap_pos.y);
+			var wg_pos:FlxPoint = Util.repos2ctr(_wg, _weap_pos, _ang);
+			_wg.set_position(wg_pos.x, wg_pos.y);
 			_wg.angle = _ang * Util.DEGREE;
 		}
 		

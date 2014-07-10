@@ -33,7 +33,7 @@ package {
 		public var _weapons:Array;
 		public var _curr_weap:int = 0;
 		
-		public var debug:Boolean = true;
+		public var debug:Boolean = false;
 		
 		override public function create():void {
 			super.create();
