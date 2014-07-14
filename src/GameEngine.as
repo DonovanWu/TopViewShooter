@@ -16,7 +16,10 @@ package {
 	import guns.BasicWeapon;
 	
 	public class GameEngine extends FlxState {
-		public var _levels:FlxGroup = new FlxGroup();
+		public var _level:BasicLevel;
+		public var _bg:FlxSprite = new FlxSprite();
+		public var _layout:FlxGroup = new FlxGroup();
+		
 		public var _bullets:FlxGroup = new FlxGroup();
 		
 		public var _player:Player = new Player();
@@ -34,27 +37,37 @@ package {
 		
 		public var debug:Boolean = false;
 		
+		public function GameEngine() {
+			_level = new TestLevel();
+		}
+		
 		override public function create():void {
 			super.create();
 			
-			_levels.add(new TestLevel());
-			this.add(_levels);
+			// bg
+			_bg = _level._bg;
+			this.add(_bg);
 			
 			this.add(_bullets);
 			
 			// game ui?
 			_weapons = [new M16(), new SPAS12(), new AA12(), new QBZ95(), new FAL(), new M1216()];
 			
-			// front
+			// mid - player, enemies
 			_player.set_pos(Util.WID / 2, Util.HEI / 2);
 			this.add(_player);
 			
+			// front - level layout
+			_layout = _level._objs;
+			this.add(_layout);
+			
+			// camera
 			_camera_icon.loadGraphic(Resource.IMPORT_CAMERA_ICON);
 			_camera_icon.visible = false;		// turn visible for debugging
 			this.add(_camera_icon);
 			
 			FlxG.camera.follow(_camera_icon);
-			FlxG.camera.antialiasing = true;	// turn off for more fluent gameplay?
+			FlxG.camera.antialiasing = false;	// option to turn on and off?
 			
 			FlxG.mouse.show(Resource.IMPORT_MOUSE_RETICLE, 1, -13, -13);
 		}
@@ -83,17 +96,33 @@ package {
 				var itr_bullet:BasicBullet = _bullets.members[i];
 				if (itr_bullet != null) {	// for some odd reason, things only work if this line is added
 					itr_bullet.update_bullet(this);
-				
 					if (itr_bullet.should_remove()) {
+						// simply disappear
+						/**/
+						itr_bullet.do_remove();
+						_bullets.remove(itr_bullet, true);
+						/**/
+						// itr_bullet.kill();	// does this improve performance, or do i need to do something more?
+					}
+					if (Util.is_out_of_bound(itr_bullet, _level.get_bound())) {
+						// TODO: add hit animation
 						itr_bullet.do_remove();
 						_bullets.remove(itr_bullet, true);
 					}
+				} // end of if
+			} // end of for
+			
+			FlxG.overlap(_layout, _bullets, function(obj:FlxSprite, bullet:BasicBullet):void {
+				// TODO: add hit animation
+				if (obj.ID == Util.ID_IMMOVABLE_OBJ) {
+					itr_bullet.do_remove();
+					_bullets.remove(itr_bullet, true);
 				}
-			}
+			});
 		}
 		
 		private function update_control():void {
-			var bound:FlxPoint = current_level().get_bound();
+			var bound:FlxPoint = _level.get_bound();
 			
 			_is_moving = false;
 			_is_sprinting = false;
@@ -148,10 +177,11 @@ package {
 				_weapons[_curr_weap].select_fire();
 				trace("select fire");
 			}
-		}
-		
-		private function current_level():BasicLevel {
-			return _levels.members[0];
+			
+			if (Util.is_key(Util.RELOAD, true) && (_weapons[_curr_weap] is Gun)) {
+				_weapons[_curr_weap].reload();
+				trace("reload");
+			}
 		}
 	}
 	

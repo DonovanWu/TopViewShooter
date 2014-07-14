@@ -23,6 +23,7 @@ package  {
 		public static var WID:Number = 640;
 		public static var HEI:Number = 640;
 		
+		// keyboard settings
 		public static var MOVE_LEFT:Vector.<String> = Vector.<String>(["A","LEFT"]);
 		public static var MOVE_RIGHT:Vector.<String> = Vector.<String>(["D","RIGHT"]);
 		public static var MOVE_UP:Vector.<String> = Vector.<String>(["W", "UP"]);
@@ -30,11 +31,17 @@ package  {
 		public static var MOVE_SPRINT:Vector.<String> = Vector.<String>(["SHIFT"]);
 		public static var TOGGLE_AIM:Vector.<String> = Vector.<String>(["SPACE"]);
 		public static var SELECT_FIRE:Vector.<String> = Vector.<String>(["F"]);
+		public static var RELOAD:Vector.<String> = Vector.<String>(["R"]);
 		
 		public static var WEAPON_SWITCH:Vector.<String> = Vector.<String>(["ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX"]);
 		
-		public static var MOVE_SPEED:Number = 2.0;
-		public static var SPRINT_SPEED:Number = 3.5;
+		// game obj id settings
+		public static var ID_IMMOVABLE_OBJ:int = 1;
+		
+		
+		// game settings
+		public static var MOVE_SPEED:Number = 3.0;
+		public static var SPRINT_SPEED:Number = 5.0;
 		
 		public static const DEGREE:Number = 180 / Math.PI;
 		public static const RADIAN:Number = Math.PI / 180;
@@ -199,6 +206,10 @@ package  {
 			spr.angle = ang * DEGREE;
 			spr.x -= spr.width / 2 * (1 - Math.cos(ang));
 			spr.y += spr.width / 2 * Math.sin(ang);
+		}
+		
+		public static function is_out_of_bound(spr:FlxSprite, bound:FlxPoint):Boolean {
+			return spr.x < 0 || spr.x > bound.x || spr.y < 0 || spr.y > bound.y;
 		}
 	}
 

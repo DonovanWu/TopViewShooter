@@ -13,6 +13,9 @@ package  {
 
 // bg
 		[Embed( source = "../resc/bg/default_bg.jpg" )] public static var IMPORT_DEFAULT_BG:Class;
+		
+// settings
+		[Embed( source = "../resc/settings/box.png" )] public static var IMPORT_SET_BOX:Class;
 
 // particles
 		[Embed( source = "../resc/particles/bullet.png" )] public static var IMPORT_GUN_BULLET:Class;

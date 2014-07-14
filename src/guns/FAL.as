@@ -12,7 +12,7 @@ package guns
 				display_name : "Semi-auto Rifle",
 				mobility : 0.9,
 				speed : 15,
-				rpm : 400,
+				rpm : 300,
 				burst : [1, 0],
 				brpm : 400,
 				damage : [49, 35],
