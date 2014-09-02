@@ -35,10 +35,6 @@ package  {
 		
 		public static var WEAPON_SWITCH:Vector.<String> = Vector.<String>(["ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX"]);
 		
-		// game obj id settings
-		public static var ID_IMMOVABLE_OBJ:int = 1;
-		
-		
 		// game settings
 		public static var MOVE_SPEED:Number = 3.0;
 		public static var SPRINT_SPEED:Number = 5.0;
@@ -203,9 +199,9 @@ package  {
 		
 		// rotate a sprite in respect to its left end, ang should be in radian
 		public static function rotate(spr:FlxSprite, ang:Number):void {
-			spr.angle = ang * DEGREE;
 			spr.x -= spr.width / 2 * (1 - Math.cos(ang));
 			spr.y += spr.width / 2 * Math.sin(ang);
+			spr.angle = ang * DEGREE;
 		}
 		
 		public static function is_out_of_bound(spr:FlxSprite, bound:FlxPoint):Boolean {

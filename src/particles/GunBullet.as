@@ -18,9 +18,14 @@ package particles
 			this._damage = dmg;
 
 			this.loadGraphic(Resource.IMPORT_GUN_BULLET);
-			// Util.rotate(this, ang * Util.RADIAN);
+			/*
+			Util.rotate(this, ang * Util.RADIAN);
+			Util.repos2ctr(this, pos, ang * Util.RADIAN);
+			/**/
+			/**/
 			this.setOriginToCorner();
 			this.angle = ang;	// ang is in degree
+			/**/
 		}
 		
 		private function curr_dmg_index():int {

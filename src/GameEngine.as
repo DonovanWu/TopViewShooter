@@ -5,12 +5,15 @@ package {
 	 */
 	
 	import flash.display.*;
+	import gameobj.BasicBlock;
 	import guns.*;
 	import particles.BasicBullet;
+	import particles.GunBullet;
 	
 	import core.Player;
-	import misc.FlxGroupSprite;
+	import misc.*;
 	import org.flixel.*;
+	// import org.flixel.plugin.photonstorm.*;
 	import scenes.BasicLevel;
 	import scenes.TestLevel;
 	import guns.BasicWeapon;
@@ -44,6 +47,8 @@ package {
 		override public function create():void {
 			super.create();
 			
+			FlxG.worldBounds = new FlxRect(0, 0, _level.wid(), _level.hei());
+			
 			// bg
 			_bg = _level._bg;
 			this.add(_bg);
@@ -67,9 +72,18 @@ package {
 			this.add(_camera_icon);
 			
 			FlxG.camera.follow(_camera_icon);
+			var stgw:Number = FlxG.stage.stageWidth / 4; var stgh:Number = FlxG.stage.stageHeight / 4;
+			FlxG.camera.setBounds(-stgw, -stgh, _level.wid() + stgw * 2, _level.hei() + stgh * 2);
 			FlxG.camera.antialiasing = false;	// option to turn on and off?
 			
 			FlxG.mouse.show(Resource.IMPORT_MOUSE_RETICLE, 1, -13, -13);
+			
+			/*
+			_test_obj.loadGraphic(Resource.IMPORT_PARTICLE_S);
+			_test_obj.color = 0xff0000;
+			_test_obj.visible = debug;
+			this.add(_test_obj);
+			*/
 		}
 		
 		override public function update():void {
@@ -84,7 +98,7 @@ package {
 			_camera_icon.set_position((_player.x() + FlxG.mouse.x - _camera_icon.width) / 2,
 									(_player.y() + FlxG.mouse.y - _camera_icon.height) / 2);
 			// problem: gun position will be considered "out of screen" and not be loaded at right-bottom corner
-			*/
+			/**/
 			/**/
 			_camera_icon.set_position((_player.x() + FlxG.mouse.x) / 2,
 									(_player.y() + FlxG.mouse.y) / 2);
@@ -97,14 +111,16 @@ package {
 				if (itr_bullet != null) {	// for some odd reason, things only work if this line is added
 					itr_bullet.update_bullet(this);
 					if (itr_bullet.should_remove()) {
-						// simply disappear
+						// remove case: max range reached; effect: simply disappear
 						/**/
 						itr_bullet.do_remove();
 						_bullets.remove(itr_bullet, true);
 						/**/
 						// itr_bullet.kill();	// does this improve performance, or do i need to do something more?
 					}
+					
 					if (Util.is_out_of_bound(itr_bullet, _level.get_bound())) {
+						// remove case: out of bound
 						// TODO: add hit animation
 						itr_bullet.do_remove();
 						_bullets.remove(itr_bullet, true);
@@ -112,9 +128,10 @@ package {
 				} // end of if
 			} // end of for
 			
-			FlxG.overlap(_layout, _bullets, function(obj:FlxSprite, bullet:BasicBullet):void {
+			FlxG.overlap(_layout, _bullets, function(obj:BasicBlock, bullet:BasicBullet):void {
+				// remove case: hit static object
 				// TODO: add hit animation
-				if (obj.ID == Util.ID_IMMOVABLE_OBJ) {
+				if (obj._static) {
 					itr_bullet.do_remove();
 					_bullets.remove(itr_bullet, true);
 				}

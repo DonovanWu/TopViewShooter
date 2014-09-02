@@ -12,7 +12,7 @@ package guns
 				display_name : "Full-auto Shotgun",
 				mobility : 1,
 				speed : 10,
-				rpm : 400,
+				rpm : 300,
 				burst : [0],
 				damage : [15, 5],
 				range : [240, 280],

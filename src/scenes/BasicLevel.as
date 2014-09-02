@@ -8,6 +8,8 @@ package scenes {
 	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	
+	import gameobj.*;
+	
 	public class BasicLevel extends FlxGroup {
 		protected var _g:GameEngine;
 		protected var _wid:Number = 0;
@@ -21,7 +23,7 @@ package scenes {
 		public function BasicLevel(layout:Object) {
 			this._layout = layout;
 			
-			_bg.loadGraphic(Resource.IMPORT_DEFAULT_BG);
+			_bg.loadGraphic(layout.bg);
 			_bg.set_position(0, 0);
 			if (_layout.wid) {
 				_wid = _layout.wid;
@@ -58,19 +60,7 @@ package scenes {
 				var boxes:Array = layout.box;
 				for (var i:int = 0; i < boxes.length; i++) {
 					var box:Object = boxes[i];
-					var sc:Number = 1;
-					if (box.scale != null) {
-						sc = box.scale;
-					}
-					
-					var spr:FlxSprite = new FlxSprite();
-					spr.loadGraphic(Resource.IMPORT_SET_BOX);
-					spr.set_position(box.x - spr.width / 2, box.y - spr.height / 2);
-					spr.angle = box.ang;
-					spr.scale.x = sc;
-					spr.scale.y = sc;
-					spr.ID = Util.ID_IMMOVABLE_OBJ;
-					
+					var spr:Box = new Box(box.x, box.y, box.ang);
 					objs.add(spr);
 				}
 			}
@@ -78,6 +68,14 @@ package scenes {
 			// ... and more
 			
 			return objs;
+		}
+		
+		public function wid():Number {
+			return _wid;
+		}
+		
+		public function hei():Number {
+			return _hei;
 		}
 	}
 }
